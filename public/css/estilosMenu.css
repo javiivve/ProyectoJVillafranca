@@ -1,0 +1,52 @@
+ /* Estilos para el menú */
+ .menu {
+    background-color: #333;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+}
+
+.menu a:hover {
+    background-color: #555;
+}
+
+.menu .usuario {
+    display: flex;
+    align-items: center;
+}
+
+.menu .usuario img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.menu .usuario .email {
+    padding-right: 10px; /* Añade separación a la derecha */
+    margin-right: 10px; /* Nuevo margen derecho */
+    border-right: 1px solid white; /* Línea de separación entre el correo electrónico y el enlace "Cerrar sesión" */
+}
+
+/* Estilos para el enlace "Cerrar sesión" */
+.cerrar-sesion-link {
+    text-decoration: none;
+    color: white;
+    background-color: #dc3545; /* Rojo */
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    padding-right:10px;
+}
+
+.cerrar-sesion-link:hover {
+    background-color:  #c82333; /* Rojo más oscuro al pasar el ratón */
+}

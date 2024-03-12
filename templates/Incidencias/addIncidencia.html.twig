@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Añadir incidencia{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilosMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilosForm.css') }}">
+    <style>
+        /* Estilos para el contenedor de la tarjeta */
+        .card-wrapper {
+            margin: 50px auto; /* Centrar horizontalmente y dar un poco de espacio superior */
+            max-width: 500px;
+            width: 95%;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra */
+            border-radius: 8px; /* Borde redondeado */
+            padding: 20px; /* Espaciado interno */
+            background-color: #f9f9f9; /* Color de fondo */
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="menu">
+    <div>
+        <a href="{{ path('verTodosClientes') }}">Clientes</a>
+        <a href="{{ path('verTodasIncidencias') }}">Incidencias</a>
+    </div>
+    {% if app.user %}
+    <div class="usuario">
+        <img src="/images/{{ app.user.foto }}" alt="User Profile Picture">
+        <span class="email">{{ app.user.userIdentifier }}</span>
+        <a href="{{ path('app_logout') }}" class="cerrar-sesion-link">Cerrar sesión</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card-wrapper">
+    <a href="{{ path('verCliente', {'id': cliente.id}) }}" class="back-link">Volver atrás</a>
+    <h2>Añadir incidencia:</h2>
+   <div class="example-wrapper">
+    {{ form(formularioIncidencia, {'attr': {'class': 'form'}}) }}
+</div>
+</div>
+{% endblock %}

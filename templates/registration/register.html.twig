@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilosRegistro.css') }}">
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_login') }}" class="back-link">Volver al login</a>
+    <h1>Registro</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+     {{ form_row(registrationForm.nombre) }}
+      {{ form_row(registrationForm.apellidos) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+         {{ form_row(registrationForm.telefono) }}
+        {{ form_row(registrationForm.foto)}}
+        {{ form_row(registrationForm.agregarTerminos) }}
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

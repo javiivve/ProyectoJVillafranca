@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle de la incidencia{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilosMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/verDatos.css') }}">
+    
+{% endblock %}
+
+{% block body %}
+
+{% for flash_message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+<div class="menu">
+    <div>
+        <a href="{{ path('verTodosClientes') }}">Clientes</a>
+        <a href="{{ path('verTodasIncidencias') }}">Incidencias</a>
+    </div>
+    {% if app.user %}
+    <div class="usuario">
+        <img src="/images/{{ app.user.foto }}" alt="User Profile Picture">
+        <span class="email">{{ app.user.userIdentifier }}</span>
+        <a href="{{ path('app_logout') }}" class="cerrar-sesion-link">Cerrar sesión</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="target">
+    <a href="{{ path('verCliente', {'id': incidencia.cliente.id}) }}">Volver atrás</a>
+
+    {% if incidencia is defined %}
+        <h2>{{ incidencia.titulo }}</h2>
+        <p class="fecha">Fecha de creación: {{ incidencia.fechaCreacion|date('Y-m-d') }}</p>
+        <p class="estado">Estado: {{ incidencia.estado }}</p>
+        
+        {% if incidencia.cliente is defined %}
+            <h3>Cliente:</h3>
+            <p>{{ incidencia.cliente.nombre }} {{ incidencia.cliente.apellidos }}</p>
+            <p>Teléfono: {{ incidencia.cliente.telefono }}</p>
+            <p>Dirección: {{ incidencia.cliente.direccion }}</p>
+        {% else %}
+            <p class="not-found">Cliente no encontrado.</p>
+        {% endif %}
+        
+        {% if incidencia.usuario is defined %}
+            <h3>Usuario que creó la incidencia:</h3>
+            <p>{{ incidencia.usuario.nombre }}</p>
+        {% else %}
+            <p class="not-found">Usuario no encontrado.</p>
+        {% endif %}
+    {% else %}
+        <p class="not-found">Incidencia no encontrada.</p>
+    {% endif %}
+</div>
+{% endblock %}

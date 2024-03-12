@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Añadir incidencia{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilosMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilosForm.css') }}">
+      <style>
+        /* Estilos para el contenedor de la tarjeta */
+        .card-wrapper {
+            margin: 0 auto; /* Centrar horizontalmente */
+            max-width: 500px;
+            width: 95%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Establecer altura para centrar verticalmente */
+        }
+
+        /* Estilos para la tarjeta */
+        .card {
+            width: 100%; /* Ocupar todo el ancho disponible */
+            max-width: 400px; /* Ancho máximo de la tarjeta */
+            padding: 20px; /* Espaciado interno */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+            border-radius: 8px; /* Borde redondeado */
+            background-color: #f9f9f9; /* Color de fondo */
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="menu">
+    <div>
+        <a href="{{ path('verTodosClientes') }}">Clientes</a>
+        <a href="{{ path('verTodasIncidencias') }}">Incidencias</a>
+    </div>
+    {% if app.user %}
+    <div class="usuario">
+        <img src="/images/{{ app.user.foto }}" alt="User Profile Picture">
+        <span class="email">{{ app.user.userIdentifier }}</span>
+        <a href="{{ path('app_logout') }}" class="cerrar-sesion-link">Cerrar sesión</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card-wrapper">
+    <div class="card">
+        {# <a href="{{ path('verTodasIncidencias') }}" class="back-link">Volver atrás</a> #}
+<h2>Añadir incidencia:</h2>
+<div class="example-wrapper">
+    {{ form(formularioIncidenciaDos, {'attr': {'class': 'form'}}) }}
+</div>
+    </div>
+</div>
+{% endblock %}

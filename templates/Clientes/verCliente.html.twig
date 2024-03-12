@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle del cliente{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilosMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/verDatos.css') }}">
+    <style>
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+        .incidencia {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .incidencia h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .incidencia .fecha {
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .incidencia .estado {
+            margin-bottom: 5px;
+        }
+
+        .incidencia .actions {
+            margin-top: 10px;
+        }
+
+        .incidencia .actions a {
+            text-decoration: none;
+            margin-right: 10px;
+            color: #007bff;
+        }
+
+        .incidencia .actions a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para el enlace "Añadir Incidencia" */
+        .add-incidencia-link {
+            text-decoration: none;
+            background-color: #007bff; /* Azul */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-incidencia-link:hover {
+            background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<div class="menu">
+    <div>
+        <a href="{{ path('verTodosClientes') }}">Clientes</a>
+        <a href="{{ path('verTodasIncidencias') }}">Incidencias</a>
+    </div>
+
+    {% if app.user %}
+    <div class="usuario">
+        <img src="/images/{{ app.user.foto }}" alt="User Profile Picture">
+        <span class="email">{{ app.user.userIdentifier }}</span>
+        <a href="{{ path('app_logout') }}" class="cerrar-sesion-link">Cerrar sesión</a>
+    </div>
+    {% endif %}
+</div>
+
+
+{% for flash_message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+<div class="target">
+    {# <a href="{{ path('verTodosClientes') }}">Volver atrás</a>  #}
+    {% if cliente is defined %}
+        <h1>{{ cliente.nombre }} {{ cliente.apellidos }}</h1>
+        <p>Teléfono: {{ cliente.telefono }}</p>
+        <p>Dirección: {{ cliente.direccion }}</p>
+
+        <h1>Incidencias:</h1>
+        <a href="{{ path('addIncidencia', {'cliente_id': cliente.id}) }}" class="add-incidencia-link">Añadir Incidencia</a>
+        {% if incidencias is defined and incidencias|length > 0 %}
+            {% for incidencia in incidencias %}
+                <div class="incidencia">
+                    <h2><a href="{{ path('verIncidencia', {'id': incidencia.id}) }}">{{ incidencia.titulo }}</a></h2>
+                    <p class="fecha">Fecha de creación: {{ incidencia.fechaCreacion|date('Y-m-d') }}</p>
+                    <p class="estado">Estado: {{ incidencia.estado }}</p>
+                    <div class="actions">
+                        <a href="{{ path('editarIncidencia', {'id': incidencia.id}) }}">Editar</a>
+                        <a href="{{ path('borrarIncidencia', {'id': incidencia.id}) }}">Borrar</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay incidencias para este cliente.</p>
+        {% endif %}
+    {% else %}
+        <p class="not-found">Cliente no encontrado.</p>
+    {% endif %}
+</div>
+{% endblock %}

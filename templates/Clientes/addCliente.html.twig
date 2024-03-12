@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Añadir cliente{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilosMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilosForm.css') }}">
+    <style>
+        /* Estilos para el contenedor del formulario */
+        .example-wrapper {
+            margin: 0 auto; /* Centrar horizontalmente */
+            max-width: 500px;
+            width: 95%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Establecer altura para centrar verticalmente */
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<div class="menu">
+    <div>
+        <a href="{{ path('verTodosClientes') }}">Clientes</a>
+        <a href="{{ path('verTodasIncidencias') }}">Incidencias</a>
+    </div>
+    {% if app.user %}
+    <div class="usuario">
+        <img src="/images/{{ app.user.foto }}" alt="User Profile Picture">
+        <span class="email">{{ app.user.userIdentifier }}</span>
+        <a href="{{ path('app_logout') }}" class="cerrar-sesion-link">Cerrar sesión</a>
+    </div>
+    {% endif %}
+</div>
+
+    {# <a href="{{ path('verTodosClientes') }}" class="back-link">Volver atrás</a> #}
+    <h2>Añadir cliente:</h2>
+    <div class="example-wrapper">
+        {{ form(formularioCliente, {'attr': {'class': 'form'}}) }}
+    </div>
+{% endblock %}
